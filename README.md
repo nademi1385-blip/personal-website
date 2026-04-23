@@ -1,28 +1,25 @@
-# Nademi1385 Portfolio Website
+# Personal Portfolio Website
 
-A modern, professional portfolio website showcasing my work and skills.
+Modern responsive portfolio website showcasing my projects and skills.
 
-## Features
+## Projects Featured
 
-- ✅ Modern design with gradient effects
-- ✅ Fully responsive
-- ✅ Smooth animations
-- ✅ Project showcase
-- ✅ Skills section with progress bars
-- ✅ Contact form
-- ✅ Active navigation highlighting
+- 🤖 Task Manager Bot
+- 🖥️ Server Monitor  
+- 🧮 Calculator Project
+- 🌐 Portfolio Website
+
+## Live Demo
+
+🔗 [View Live Demo](https://nademi1385-blip.github.io/personal-website/)
 
 ## Technologies
 
 - HTML5
 - CSS3
-- JavaScript (Vanilla)
+- JavaScript
 
+## Contact
 
-
-## Setup
-
-```bash
-git clone https://github.com/nademi1385-blip/portfolio.git
-cd portfolio
-open index.html
+- GitHub: [nademi1385-blip](https://github.com/nademi1385-blip)
+- Telegram: [@Nademi_85](https://t.me/Nademi_85)
