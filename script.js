@@ -36,10 +36,31 @@ if (contactForm) {
     });
 }
 
+// Mobile Menu Toggle
+const menuToggle = document.getElementById('menuToggle');
+const navLinksMenu = document.getElementById('navLinks');
+
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navLinksMenu.classList.toggle('active');
+    });
+}
+
+// Close mobile menu when clicking on a link
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (navLinksMenu.classList.contains('active')) {
+            menuToggle.classList.remove('active');
+            navLinksMenu.classList.remove('active');
+        }
+    });
+});
+
 // Intersection Observer for animations
 const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -57,11 +78,3 @@ document.querySelectorAll('.project-card, .skill-card, .contact-card').forEach(e
     el.style.transition = 'all 0.6s ease-out';
     observer.observe(el);
 });
-
-// Mobile menu (optional)
-const menuBtn = document.querySelector('.menu-btn');
-if (menuBtn) {
-    menuBtn.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.toggle('active');
-    });
-}

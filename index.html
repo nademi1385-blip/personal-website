@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Nademi1385 | Professional Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,8 +13,13 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">N<span>.</span></div>
-            <ul class="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#about">About</a></li>
@@ -29,7 +34,7 @@
             <div class="hero-content">
                 <div class="badge">🚀 Available for work</div>
                 <h1>Building exceptional <span class="gradient-text">digital experiences</span></h1>
-                <p>I'm a full-stack developer specializing in building (and occasionally designing) exceptional digital experiences. Currently focused on building products with Python, JavaScript, and Cloud technologies.</p>
+                <p>I'm a full-stack developer specializing in building exceptional digital experiences. Currently focused on Python, JavaScript, and Cloud technologies.</p>
                 <div class="hero-buttons">
                     <button class="btn-primary" onclick="scrollToSection('projects')">View Projects →</button>
                     <button class="btn-secondary" onclick="scrollToSection('contact')">Let's Talk</button>
