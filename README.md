@@ -18,3 +18,5 @@ A modern, professional portfolio website showcasing my work and skills.
 - CSS3
 - JavaScript (Vanilla)
 
+#live demo
+https://nademi1385-blip.github.io/personal-website/
