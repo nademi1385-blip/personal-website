@@ -18,13 +18,3 @@ A modern, professional portfolio website showcasing my work and skills.
 - CSS3
 - JavaScript (Vanilla)
 
-## Live Demo
-
-[https://nademi1385-blip.github.io/portfolio](https://nademi1385-blip.github.io/portfolio)
-
-## Setup
-
-```bash
-git clone https://github.com/nademi1385-blip/portfolio.git
-cd portfolio
-open index.html
