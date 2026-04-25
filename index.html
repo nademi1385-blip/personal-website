@@ -227,14 +227,13 @@
         <div id="chatbot-toggle" onclick="toggleChatbot()">🤖</div>
         <div id="chatbot-window">
             <div id="chatbot-header"><span>🤖 دستیار هوشمند</span><span style="cursor:pointer" onclick="toggleChatbot()">✕</span></div>
-            <div id="chatbot-messages"><div class="bot-msg">سلام! من دستیار هوشمند محمد نادمی هستم. هر سوالی داری بپرس! 🚀</div></div>
+            <div id="chatbot-messages"><div class="bot-msg">سلام! من دستیار هوشمند محمد نادمی هستم. هر سوالی درباره من داری بپرس! 🚀</div></div>
             <div id="chatbot-input-area"><input type="text" id="chatbot-input" placeholder="سوال خود را بپرسید..." onkeypress="if(event.key==='Enter') sendMessage()"><button onclick="sendMessage()">📤</button></div>
             <div id="chatbot-loading" style="display:none;">🤖 در حال تایپ...</div>
         </div>
     </div>
 
     <script>
-        // Mobile menu
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
         if (menuToggle) {
@@ -252,7 +251,6 @@
         
         function scrollToSection(sectionId) { document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' }); }
         
-        // Active nav
         const sections = document.querySelectorAll('section');
         window.addEventListener('scroll', () => {
             let current = '';
@@ -266,14 +264,13 @@
             });
         });
         
-        // Contact form
         document.getElementById('contactForm')?.addEventListener('submit', (e) => {
             e.preventDefault();
             alert('Thank you for your message! I will get back to you soon.');
             e.target.reset();
         });
         
-        // ========== Chatbot with fallback ==========
+        // ========== Chatbot ==========
         let isChatbotOpen = false;
         function toggleChatbot() { const w = document.getElementById('chatbot-window'); isChatbotOpen = !isChatbotOpen; w.style.display = isChatbotOpen ? 'flex' : 'none'; }
         
@@ -288,63 +285,141 @@
         function showLoading() { document.getElementById('chatbot-loading').style.display = 'block'; }
         function hideLoading() { document.getElementById('chatbot-loading').style.display = 'none'; }
         
-        function getFallbackResponse(question) {
+        // اطلاعات کامل درباره شما
+        const fullInfo = `محمد نادمی (Nademi1385) یک توسعه‌دهنده فول‌استک پایتون با 4 سال تجربه است. محل زندگی: تبریز، ایران. مهارت‌های او شامل: 
+- زبان‌ها: Python, JavaScript, SQL, HTML/CSS
+- فریمورک‌ها و ابزارها: Flask, Telegram Bot API, Git, Docker, Linux
+- سیستم‌عامل‌ها: Windows, Linux
+پروژه‌های انجام شده:
+1. Task Manager Bot - ربات مدیریت کارها با تاریخ شمسی
+2. Server Monitor - سیستم مانیتورینگ سرور با داشبورد تحت وب
+3. Calculator Project - ماشین حساب مدرن با JavaScript
+4. Portfolio Website - سایت شخصی حرفه‌ای
+5. Personal AI Bot - ربات هوش مصنوعی شخصی
+راه‌های ارتباطی:
+- تلگرام: @Nademi_85
+- ایمیل: nademi1385@gmail.com
+- گیت‌هاب: github.com/nademi1385-blip
+- اینستاگرام: @m_nademi85
+وضعیت همکاری: فعال و آماده همکاری در پروژه‌های برنامه‌نویسی، ساخت ربات تلگرام و توسعه وب.`;
+
+        function getIntelligentResponse(question) {
             const q = question.toLowerCase();
-            if (q.includes('کیست') || q.includes('معرفی')) return '👤 من محمد نادمی هستم، توسعه‌دهنده پایتون با ۴ سال تجربه. محل زندگی: تبریز، ایران.';
-            if (q.includes('مهارت') || q.includes('چه کارایی')) return '💼 مهارت‌های من: Python, JavaScript, SQL, ربات تلگرام, Flask, DevOps, Git.';
-            if (q.includes('پروژه')) return '📁 پروژه‌های من: Task Manager Bot, Server Monitor, Calculator, Portfolio Website, Personal AI Bot.';
-            if (q.includes('تماس') || q.includes('ارتباط')) return '📞 تلگرام: @Nademi_85 | ایمیل: nademi1385@gmail.com | گیت‌هاب: github.com/nademi1385-blip';
-            if (q.includes('همکاری')) return '🤝 بله! من آماده همکاری هستم. از طریق تلگرام @Nademi_85 پیام بدید.';
-            if (q.includes('کجا زندگی')) return '📍 من در تبریز، ایران زندگی می‌کنم.';
-            if (q.includes('چند سال')) return '📊 من ۴ سال تجربه برنامه‌نویسی حرفه‌ای دارم.';
-            return '❌ من فقط میتونم درباره محمد نادمی اطلاعات بدم. سوالات مجاز: کی هستی؟ چه مهارت‌هایی داری؟ چه پروژه‌هایی داری؟ چطور باهات تماس بگیرم؟';
+            
+            // اطلاعات شخصی
+            if (q.includes('کیست') || q.includes('معرفی') || q.includes('خودتو') || q.includes('چه کسی')) {
+                return `👤 **معرفی محمد نادمی**\n\nمن محمد نادمی هستم، توسعه‌دهنده فول‌استک پایتون با 4 سال تجربه. ساکن تبریز، ایران. تخصص اصلی من ساخت ربات‌های تلگرام، وب اپلیکیشن و ابزارهای اتوماسیون است.\n\n🎯 همیشه به دنبال چالش‌های جدید و یادگیری تکنولوژی‌های روز هستم!`;
+            }
+            
+            // مهارت‌ها
+            if (q.includes('مهارت') || q.includes('تخصص') || q.includes('چه کارایی') || q.includes('چه کاری') || q.includes('توانایی')) {
+                return `💼 **مهارت‌های تخصصی من**\n\n**زبان‌های برنامه‌نویسی:**\n🐍 Python (حرفه‌ای)\n📜 JavaScript (پیشرفته)\n🗄️ SQL (پیشرفته)\n🎨 HTML/CSS (پیشرفته)\n\n**ابزارها و فریمورک‌ها:**\n🤖 Telegram Bot API\n🌐 Flask\n🐙 Git & GitHub\n🐳 Docker (در حال یادگیری)\n🐧 Linux\n\n**زمینه‌های تخصصی:**\n• توسعه ربات تلگرام\n• طراحی وب اپلیکیشن\n• مانیتورینگ سرور\n• اتوماسیون با پایتون`;
+            }
+            
+            // پروژه‌ها
+            if (q.includes('پروژه') || q.includes('چه کار کردی') || q.includes('نمونه کار') || q.includes('ساختی')) {
+                return `📁 **پروژه‌های انجام شده**\n\n1. 🤖 **Task Manager Bot** - ربات مدیریت کارها با پشتیبانی از تاریخ شمسی، ددلاین و یادآوری\n2. 🖥️ **Server Monitor** - سیستم مانیتورینگ سرور با داشبورد تحت وب Flask\n3. 🧮 **Calculator Project** - ماشین حساب مدرن با HTML/CSS/JS\n4. 🌐 **Portfolio Website** - سایت شخصی حرفه‌ای با ریسپانسیو و چت‌بات هوشمند\n5. 🤖💬 **Personal AI Bot** - ربات هوش مصنوعی شخصی متصل به OpenRouter\n\n🔗 همه پروژه‌ها در گیت‌هاب: github.com/nademi1385-blip`;
+            }
+            
+            // تماس
+            if (q.includes('تماس') || q.includes('ارتباط') || q.includes('چطوری') || q.includes('راه')) {
+                return `📞 **راه‌های ارتباطی با من**\n\n• 📱 **تلگرام:** @Nademi_85 (سریع‌ترین راه)\n• 📧 **ایمیل:** nademi1385@gmail.com\n• 🐙 **گیت‌هاب:** github.com/nademi1385-blip\n• 📷 **اینستاگرام:** @m_nademi85\n• 📞 **شماره تماس:** 0914 656 6904\n\n💡 بهترین راه برای ارتباط سریع، ارسال پیام در تلگرام است.`;
+            }
+            
+            // همکاری
+            if (q.includes('همکاری') || q.includes('کار') || q.includes('استخدام') || q.includes('پروژه بدم')) {
+                return `🤝 **همکاری با من**\n\n✅ **وضعیت:** فعال و آماده همکاری\n💼 **نوع همکاری:** فریلنسری، پروژه‌ای، دورکاری\n\n**زمینه‌های همکاری:**\n• ساخت ربات تلگرام سفارشی\n• برنامه‌نویسی پایتون\n• ساخت وب اپلیکیشن با Flask\n• مشاوره فنی\n• آموزش برنامه‌نویسی\n\n📞 از طریق تلگرام @Nademi_85 با من در ارتباط باشید.`;
+            }
+            
+            // محل زندگی
+            if (q.includes('کجا زندگی') || q.includes('محل زندگی') || q.includes('کجا هستی')) {
+                return `📍 **محل زندگی من**\n\nمن در شهر **تبریز**، استان آذربایجان شرقی، **ایران** زندگی می‌کنم.\n\nآماده همکاری به صورت دورکاری با کل ایران و جهان 🌍`;
+            }
+            
+            // تجربه
+            if (q.includes('تجربه') || q.includes('سابقه') || q.includes('چند سال') || q.includes('مدت')) {
+                return `📊 **سوابق و تجربیات**\n\n• **۴+ سال** تجربه برنامه‌نویسی حرفه‌ای\n• **۳۵+ پروژه** موفق انجام شده\n• **۳۵+ مشتری** راضی\n• **۱۰۰٪** رضایت مشتریان\n\n**سابقه کاری:**\n• فریلنسر حرفه‌ای (۴ سال)\n• همکاری با چندین استارتاپ ایرانی\n• انجام پروژه‌های سفارشی ربات تلگرام`;
+            }
+            
+            // گیت‌هاب
+            if (q.includes('گیت') || q.includes('github')) {
+                return `🐙 **گیت‌هاب من**\n\nآدرس گیت‌هاب من:\n🔗 github.com/nademi1385-blip\n\nپروژه‌های من آنجا به صورت متن‌باز منتشر شده است. می‌توانید کدهای ربات‌ها و ابزارهای مختلف را مشاهده کنید.\n\n⭐ اگر پروژه‌های من را مفید می‌دانید، خوشحال می‌شوم به آنها ستاره دهید!`;
+            }
+            
+            // ربات
+            if (q.includes('ربات') || q.includes('بات')) {
+                return `🤖 **ربات‌های ساخته شده**\n\nمن چندین ربات تلگرام حرفه‌ای ساخته‌ام:\n\n1. **Task Manager Bot** - مدیریت کارهای روزانه با تاریخ شمسی\n2. **Personal AI Bot** - دستیار هوشمند شخصی\n\nهمه ربات‌ها در گیت‌هاب من منتشر شده و قابل مشاهده هستند.`;
+            }
+            
+            // تشکر
+            if (q.includes('مرسی') || q.includes('ممنون') || q.includes('شما خوب') || q.includes('دمت گرم')) {
+                return `🌹 **خواهش می‌کنم!**\n\nخوشحالم که تونستم کمکت کنم.\n\nاگه سوال دیگه‌ای درباره من داری، بپرس!\n\nموفق باشی 😊`;
+            }
+            
+            // پیش‌فرض هوشمند
+            return `❓ درباره **محمد نادمی** سوال بپرس.\n\n📌 **سوالات پرتکرار:**\n• کی هستی / خودتو معرفی کن\n• چه مهارت‌هایی داری؟\n• چه پروژه‌هایی انجام دادی؟\n• چطور باهات تماس بگیرم؟\n• کجا زندگی میکنی؟\n• آماده همکاری هستی؟\n• چند سال تجربه داری؟\n\nسوالت رو بپرس تا کمکت کنم! 🚀`;
         }
         
         async function sendMessage() {
             const input = document.getElementById('chatbot-input');
             const question = input.value.trim();
             if (!question) return;
+            
             addMessage(question, true);
             input.value = '';
             showLoading();
             
+            // ابتدا سعی می‌کنیم با API هوشمند پاسخ بدیم
             try {
-                const personalInfo = `نام: محمد نادمی (Nademi1385)، شغل: توسعه دهنده پایتون، محل زندگی: تبریز، ایران، مهارت‌ها: Python, JavaScript, SQL, ربات تلگرام, Flask, DevOps، پروژه‌ها: Task Manager Bot, Server Monitor, Calculator, Portfolio Website, Personal AI Bot، تلگرام: @Nademi_85، ایمیل: nademi1385@gmail.com، گیت‌هاب: github.com/nademi1385-blip، وضعیت همکاری: فعال`;
-                
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
                 
                 const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer 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' },
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                        'Authorization': 'Bearer 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'
+                    },
                     body: JSON.stringify({
                         model: 'inclusionai/ling-2.6-1t:free',
-                        messages: [{ role: 'system', content: `تو دستیار محمد نادمی. فقط درباره او پاسخ بده. اطلاعات: ${personalInfo}. پاسخ کوتاه باشه.` }, { role: 'user', content: question }],
-                        max_tokens: 200,
-                        temperature: 0.5
+                        messages: [
+                            { role: 'system', content: `تو یک دستیار هوشمند هستی که فقط درباره "محمد نادمی" (Nademi1385) پاسخ می‌دهی. اطلاعات کامل: ${fullInfo}. پاسخ باید کوتاه، مفید و محترمانه باشد. اگر سوال خارج از موضوع بود، یک پاسخ مرتبط با خودت بده.` },
+                            { role: 'user', content: question }
+                        ],
+                        max_tokens: 250,
+                        temperature: 0.5,
+                        top_p: 0.9
                     }),
                     signal: controller.signal
                 });
                 
                 clearTimeout(timeoutId);
                 
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                const data = await response.json();
-                let reply = data.choices && data.choices[0] ? data.choices[0].message.content : null;
-                if (!reply || reply.length < 3) throw new Error('Empty response');
-                addMessage(reply, false);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+                        addMessage(data.choices[0].message.content, false);
+                        hideLoading();
+                        return;
+                    }
+                }
+                throw new Error('API failed');
             } catch (error) {
-                console.warn('API failed, using fallback:', error);
-                addMessage(getFallbackResponse(question), false);
-            } finally {
-                hideLoading();
+                console.log('Using fallback response');
+                const response = getIntelligentResponse(question);
+                addMessage(response, false);
             }
+            hideLoading();
         }
         
-        // Animations
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
         }, observerOptions);
         document.querySelectorAll('.project-card, .skill-card, .contact-card, .stat-card').forEach(el => {
             el.style.opacity = '0';
