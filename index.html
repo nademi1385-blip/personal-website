@@ -121,30 +121,11 @@
         function showLoading(){document.getElementById('chatbot-loading').style.display='block'}
         function hideLoading(){document.getElementById('chatbot-loading').style.display='none'}
         
-        const aboutInfo = {
-            name: "محمد نادمی (Nademi1385)",
-            job: "توسعه‌دهنده فول‌استک پایتون",
-            location: "تبریز، ایران",
-            experience: "4 سال",
-            skills: "پایتون، جاوااسکریپت، SQL، HTML/CSS، Flask، Django، Telegram Bot API، Git، Docker، Linux، V2Ray، Shadowsocks",
-            projects: ["ربات مدیریت کارها - Telegram bot with Jalali date", "سیستم مانیتورینگ سرور - Real-time monitoring with Flask", "ماشین حساب - Modern calculator with JavaScript", "سایت شخصی - Portfolio with AI chatbot", "ربات هوش مصنوعی - AI-powered Telegram assistant", "ربات فروش کانفیگ - VPN config sales bot"],
-            contact: {telegram: "@Nademi_85", email: "nademi1385@gmail.com", github: "github.com/nademi1385-blip", instagram: "@m_nademi85", phone: "0914 656 6904"},
-            freelance: "فعال و آماده همکاری",
-            interests: "یادگیری تکنولوژی جدید، حل چالش برنامه‌نویسی، ساخت ابزار کاربردی"
-        };
-        
-        const allowedTopics = ["برنامه‌نویسی", "پایتون", "جاوااسکریپت", "ربات تلگرام", "فیلترشکن", "کانفیگ", "وب سایت", "فروش", "هوش مصنوعی", "پروژه", "مهارت", "تجربه", "همکاری", "تماس", "قیمت", "زمان"];
-        
-        function isAllowedTopic(question){
-            const q=question.toLowerCase();
-            for(let topic of allowedTopics){
-                if(q.includes(topic)) return true;
-            }
-            if(q.includes('محمد')||q.includes('نادمی')||q.includes('nademi')) return true;
-            if(q.includes('کیست')||q.includes('معرفی')||q.includes('کی هست')) return true;
-            if(q.includes('چیست')||q.includes('چطور')||q.includes('چگونه')) return true;
-            return false;
-        }
+        const aboutMe = `محمد نادمی (Nademi1385) یک توسعه‌دهنده فول‌استک پایتون از تبریز، ایران با 4 سال تجربه است.
+مهارت‌ها: پایتون، جاوااسکریپت، SQL، HTML/CSS، Flask، Django، Telegram Bot API، Git، Docker، Linux، V2Ray، Shadowsocks
+پروژه‌ها: ربات مدیریت کارها، سیستم مانیتورینگ سرور، ماشین حساب، سایت شخصی، ربات هوش مصنوعی، ربات فروش کانفیگ
+راه‌های ارتباطی: تلگرام @Nademi_85، ایمیل nademi1385@gmail.com، گیت‌هاب github.com/nademi1385-blip
+وضعیت همکاری: فعال و آماده همکاری`;
         
         async function sendMessage(){
             const input=document.getElementById('chatbot-input');
@@ -154,12 +135,6 @@
             addMessage(question,true);
             input.value='';
             showLoading();
-            
-            if(!isAllowedTopic(question)){
-                addMessage("❌ من فقط درباره **محمد نادمی** و حوزه **برنامه‌نویسی** می‌توانم صحبت کنم.\n\n📌 **موضوعات قابل بحث:**\n• برنامه‌نویسی (پایتون، جاوااسکریپت، ...)\n• ربات تلگرام و هوش مصنوعی\n• ساخت فیلترشکن و کانفیگ\n• وب سایت و فروشگاه آنلاین\n• همکاری و قیمت پروژه\n• مهارت‌ها و تجربیات محمد نادمی", false);
-                hideLoading();
-                return;
-            }
             
             try{
                 const controller=new AbortController();
@@ -171,35 +146,21 @@
                     body:JSON.stringify({
                         model:'google/gemini-2.0-flash-exp:free',
                         messages:[
-                            {role:'system',content:`شما یک دستیار هوشمند هستید. پاسخ‌های خود را به زبان فارسی بدهید.
-
-شما درباره "محمد نادمی" می‌توانید صحبت کنید و همچنین در مورد موضوعات زیر:
-- برنامه‌نویسی (پایتون، جاوااسکریپت، SQL، HTML/CSS، Flask، Django)
-- ربات تلگرام (ساخت ربات، Telegram Bot API)
-- فیلترشکن و کانفیگ (V2Ray، Shadowsocks، WireGuard)
-- وب سایت و فروشگاه آنلاین
-- هوش مصنوعی و API های آن
-- همکاری و قیمت گذاری پروژه
+                            {role:'system',content:`تو یک دستیار هوشمند هستی. به زبان فارسی پاسخ بده.
 
 اطلاعات محمد نادمی:
-نام: ${aboutInfo.name}
-شغل: ${aboutInfo.job}
-محل: ${aboutInfo.location}
-تجربه: ${aboutInfo.experience}
-مهارت‌ها: ${aboutInfo.skills}
-پروژه‌ها: ${aboutInfo.projects.join('، ')}
-تماس: تلگرام ${aboutInfo.contact.telegram}، ایمیل ${aboutInfo.contact.email}، گیت‌هاب ${aboutInfo.contact.github}
-وضعیت همکاری: ${aboutInfo.freelance}
+${aboutMe}
 
-قوانین مهم:
-1. به تمام سوالات در حوزه برنامه‌نویسی و تخصص خود پاسخ بده
-2. درباره محمد نادمی، مهارت‌ها و پروژه‌هایش صحبت کن
-3. سوالات خارج از حوزه (تاریخ، جغرافیا، سیاست، ورزش، سرگرمی) را پاسخ نده
-4. پاسخ‌ها کوتاه، مفید و دوستانه باشد`},
+قوانین:
+1. به هر سوالی که کاربر می‌پرسد پاسخ بده
+2. اگر سوال درباره محمد نادمی بود، از اطلاعات بالا استفاده کن
+3. اگر سوال عمومی بود، از دانش خودت استفاده کن و پاسخ بده
+4. فقط سوالات خیلی خصوصی و بی‌ربط را نادیده بگیر
+5. پاسخ‌ها کوتاه، مفید و دوستانه باشد`},
                             {role:'user',content:question}
                         ],
                         max_tokens:500,
-                        temperature:0.5
+                        temperature:0.7
                     }),
                     signal:controller.signal
                 });
@@ -217,17 +178,17 @@
             }catch(error){
                 const q=question.toLowerCase();
                 let reply="";
-                if(q.includes('پایتون')||q.includes('python')) reply="🐍 پایتون یک زبان برنامه‌نویسی سطح بالا، قدرتمند و همه‌کاره است. من محمد نادمی با پایتون ربات تلگرام، سیستم مانیتورینگ و ابزارهای مختلف ساخته‌ام."
-                else if(q.includes('جاوااسکریپت')||q.includes('javascript')) reply="📜 جاوااسکریپت زبان اصلی برنامه‌نویسی وب است. من با آن ماشین حساب و سایت شخصی خود را ساخته‌ام."
-                else if(q.includes('ربات')||q.includes('بات')) reply="🤖 من ربات‌های تلگرام حرفه‌ای ساخته‌ام: مدیریت کارها، هوش مصنوعی شخصی، فروش کانفیگ. همه در گیت‌هاب موجود است."
+                if(q.includes('سلام')||q.includes('درود')) reply="سلام! وقت بخیر. چطور می‌توانم کمکت کنم؟"
+                else if(q.includes('پایتون')||q.includes('python')) reply="🐍 پایتون یک زبان برنامه‌نویسی قدرتمند است. من محمد نادمی با پایتون ربات تلگرام، سیستم مانیتورینگ و ابزارهای مختلف ساخته‌ام."
+                else if(q.includes('جاوااسکریپت')||q.includes('javascript')) reply="📜 جاوااسکریپت زبان اصلی وب است. من با آن ماشین حساب و سایت شخصی خود را ساخته‌ام."
                 else if(q.includes('فیلترشکن')||q.includes('vpn')||q.includes('کانفیگ')) reply="✅ بله! من می‌توانم فیلترشکن بسازم. با V2Ray، Shadowsocks و WireGuard روی سرورهای خارجی راه‌اندازی می‌کنم."
-                else if(q.includes('شما')||q.includes('محمد')) reply=`👤 من ${aboutInfo.name} هستم، ${aboutInfo.job} از ${aboutInfo.location} با ${aboutInfo.experience} تجربه. تخصص من ساخت ربات تلگرام و برنامه‌های پایتون است.`
-                else if(q.includes('مهارت')||q.includes('تخصص')) reply=`💼 مهارت‌های من: ${aboutInfo.skills}`
-                else if(q.includes('پروژه')) reply=`📁 پروژه‌های من: ${aboutInfo.projects.join('، ')}`
-                else if(q.includes('تماس')||q.includes('ارتباط')) reply=`📞 راه‌های ارتباطی:\n• تلگرام: ${aboutInfo.contact.telegram}\n• ایمیل: ${aboutInfo.contact.email}\n• گیت‌هاب: ${aboutInfo.contact.github}`
-                else if(q.includes('همکاری')) reply=`🤝 بله! من آماده همکاری هستم. از تلگرام ${aboutInfo.contact.telegram} پیام بدید.`
-                else if(q.includes('قیمت')||q.includes('هزینه')) reply="💰 قیمت پروژه به پیچیدگی و حجم کار بستگی دارد. برای استعلام دقیق، از تلگرام با من در ارتباط باشید."
-                else reply="❓ من درباره برنامه‌نویسی، ربات تلگرام، ساخت فیلترشکن و مهارت‌های محمد نادمی می‌توانم صحبت کنم. سوال خود را بپرسید!"
+                else if(q.includes('ربات')||q.includes('بات')) reply="🤖 من ربات‌های تلگرام حرفه‌ای ساخته‌ام: ربات مدیریت کارها، ربات هوش مصنوعی شخصی، ربات فروش کانفیگ."
+                else if(q.includes('کیست')||q.includes('معرفی')||q.includes('خودتو')) reply=aboutMe
+                else if(q.includes('مهارت')) reply=`💼 مهارت‌های من: پایتون، جاوااسکریپت، SQL، Flask، ربات تلگرام، Docker، Linux، ساخت فیلترشکن`
+                else if(q.includes('پروژه')) reply=`📁 پروژه‌های من: ربات مدیریت کارها، سیستم مانیتورینگ سرور، ماشین حساب، سایت شخصی، ربات هوش مصنوعی، ربات فروش کانفیگ`
+                else if(q.includes('تماس')||q.includes('ارتباط')) reply=`📞 راه‌های ارتباطی:\n• تلگرام: @Nademi_85\n• ایمیل: nademi1385@gmail.com\n• گیت‌هاب: github.com/nademi1385-blip`
+                else if(q.includes('همکاری')) reply=`🤝 بله! من آماده همکاری هستم. از تلگرام @Nademi_85 پیام بدید.`
+                else reply=`${aboutMe.substring(0,300)}...\n\n📌 سوال شما: "${question}"\n\nپاسخ: من محمد نادمی هستم، سوال شما را متوجه نشدم. لطفاً واضح‌تر بپرسید.`
                 addMessage(reply,false);
             }
             hideLoading();
